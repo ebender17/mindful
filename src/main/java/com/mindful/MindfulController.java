@@ -20,5 +20,10 @@ public class MindfulController {
 	public String start() { 
 		return "index";
 	}
+	
+	@RequestMapping("/welcome")
+	public String welcomeScreen() {
+		return "welcome";
+	}
 
 }
