@@ -39,7 +39,6 @@ public class MindfulController {
 		return "index";
 	}
 	
-	
 	@GetMapping("/getAllParents")
 	public List<Parent> getAllParents() throws InterruptedException, ExecutionException {
 		//list of parents
@@ -66,6 +65,10 @@ public class MindfulController {
 	@PostMapping("/addEmployee")
 	public int addEmployee(@RequestBody Parent parent) {
 		return 1; 
+	}
+	@RequestMapping("/welcome")
+	public String welcomeScreen() {
+		return "welcome";
 	}
 
 }
