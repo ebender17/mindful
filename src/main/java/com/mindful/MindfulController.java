@@ -44,12 +44,25 @@ public class MindfulController {
 		return "parentDashboard";
 	}
 	
+	@RequestMapping(value="/contactUS")
+	public String contactUS() {
+		return "contactUS";
+	}
+	
+	@RequestMapping(value="/studentDashboard") 
+	public String studentDashboard() {
+		return "studentDashboard";
+	}
+	
 	@GetMapping("/getAllParents")
 	public List<Parent> getAllParents() throws InterruptedException, ExecutionException {
+		
 		//list of parents
 		List<Parent> parentList = new ArrayList<Parent>();
+		
 		//retrieves parent collection
 		CollectionReference parent = db.getFirebase().collection("Parent");
+		
 		//contains results of query
 		ApiFuture<QuerySnapshot> querySnapshot = parent.get();
 		
