@@ -48,15 +48,17 @@ public class MindfulController {
 	public List<Parent> getAllParents() throws InterruptedException, ExecutionException {
 		//list of parents
 		List<Parent> parentList = new ArrayList<Parent>();
+		
 		//retrieves parent collection
 		CollectionReference parent = db.getFirebase().collection("Parent");
+		
 		//contains results of query
 		ApiFuture<QuerySnapshot> querySnapshot = parent.get();
 		
 		//For every parent doc in querySnapshot, add to parentList 
 		for(DocumentSnapshot doc:querySnapshot.get().getDocuments()) {
-			Parent par = doc.toObject(Parent.class);
-			parentList.add(par);
+			Parent pardoc = doc.toObject(Parent.class);
+			parentList.add(pardoc);
 		}
 		return parentList; 
 		
