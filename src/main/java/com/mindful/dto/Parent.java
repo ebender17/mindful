@@ -1,29 +1,39 @@
 package com.mindful.dto;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Component;
 
 @Component 
 public class Parent {
 	private int ID; 
-	private String name; 
-	private int childID;
+	private String firstName;
+	private String lastName;
+	// private ArrayList<Child> children;
 	public int getID() {
 		return ID;
 	}
 	public void setID(int iD) {
 		ID = iD;
 	}
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public int getChildID() {
-		return childID;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setChildID(int childID) {
-		this.childID = childID;
-	} 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	/*public ArrayList<Child> getChildren() {
+		return children;
+	}
+	public void setChildren(ArrayList<Child> children) {
+		this.children = children;
+	} */
+	
 
 }

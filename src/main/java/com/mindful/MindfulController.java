@@ -40,9 +40,11 @@ public class MindfulController {
 	}
 	
 	@GetMapping("/getAllParents")
-	public List<Parent> getAllParents() throws InterruptedException, ExecutionException {
+	public String getAllParents() throws InterruptedException, ExecutionException {
 		//list of parents
 		List<Parent> parentList = new ArrayList<Parent>();
+		
+		System.out.print(db);
 		//retrieves parent collection
 		CollectionReference parent = db.getFirebase().collection("Parent");
 		//contains results of query
@@ -53,7 +55,7 @@ public class MindfulController {
 			Parent par = doc.toObject(Parent.class);
 			parentList.add(par);
 		}
-		return parentList; 
+		return "Parents"; 
 		
 	}
 	
