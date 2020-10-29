@@ -39,6 +39,26 @@ public class MindfulController {
 		return "index";
 	}
 	
+	@RequestMapping(value="/parentDashboard")
+	public String parentDashboard() {
+		return "parentDashboard";
+	}
+	
+	@RequestMapping(value="/signUp")
+	public String signUp() {
+		return "signUp";
+	}
+	
+	@RequestMapping(value="/studentDashboard")
+	public String studentDashboard() {
+		return "studentDashboard";
+	}
+	
+	@RequestMapping(value="/contact")
+	public String contact() {
+		return "contact";
+	}
+	
 	@GetMapping("/getAllParents")
 	public String getAllParents() throws InterruptedException, ExecutionException {
 		//list of parents
