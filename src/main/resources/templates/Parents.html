@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
+	<h4> All Parents </h4>
+	<br/>
+	<table>
+		<thead> 
+			<tr> 
+				<th> ID </th>
+				<th>Name </th>
+				<th> Longitude </th>
+				<th> Children </th>
+			</tr>
+		</thead>
+		<tbody> 
+			<tr th:each="Parent : ${Parents}">
+				<td th:text=${Parent.ID}/>
+				<td th:text="${Parent.firstName}"/>
+				<td th:text="${Parent.longitude}"/>
+				<td th:text="${Parent.children}"/>
+			</tr>
+		</tbody>
+	
+	</table>
 
 </body>
 </html>
