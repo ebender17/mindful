@@ -11,8 +11,7 @@ import com.google.cloud.firestore.GeoPoint;
 @Component 
 public class Parent {
 	private String ID; 
-	private String firstName;
-	private String lastName;
+	private String name;
 	private GeoPoint location;
 	private double latitude;
 	private double longitude;
@@ -24,17 +23,11 @@ public class Parent {
 	public void setID(String id) {
 		ID = id;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public GeoPoint getLocation() {
 		return location;

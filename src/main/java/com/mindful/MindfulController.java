@@ -75,45 +75,19 @@ public class MindfulController {
 	@GetMapping("/getAllParents")
 	public String getAllParents(Model allModel) throws InterruptedException, ExecutionException {
 		
-		 //list of parents 
+		//list of parents 
 		List<Parent> parentList = new ArrayList<Parent>();
-		  
-		 System.out.print(db); //retrieves parent collection 
-		 CollectionReference parent = db.getFirebase().collection("Parent"); //contains results of query
-		 ApiFuture<QuerySnapshot> querySnapshot = parent.get();
+		List<Parent> parentList2 = new ArrayList<Parent>();
+		
+		parentList = parentService.getAllParents();
+		Parent parent1 = parentService.getParentByID("u6MPV6TLadpZsy8Lh7bt");
+		parentList2 = parentService.getParentByName("Tish Cyrus"); 
 		 
-		 //For every parent doc in querySnapshot, add to parentList
-		 for(DocumentSnapshot doc:querySnapshot.get().getDocuments()) { 
-			 Parent par = doc.toObject(Parent.class);
-			 par.setID(doc.getId());
-			 parentList.add(par);  
-			}
-		 
-		 allModel.addAttribute("Parents", parentList); 
+		allModel.addAttribute("Parents", parentList); 
+		allModel.addAttribute("Parent1", parent1);
+		allModel.addAttribute("Parents2", parentList2); 
 		 
 		return "Parents"; 
 		
 	}
-	//CRUD Controllers
-	@GetMapping("/getParent")
-	public Parent getParent(@RequestParam("id") String id) throws InterruptedException, ExecutionException {
-		return parentService.getParentInfo("123"); 
-	}
-	
-	@PostMapping("/addParent")
-	public String addParent(@RequestBody Parent parent) throws InterruptedException, ExecutionException {
-		return parentService.saveParent(parent); 
-	}
-	
-	@PutMapping("/updatePatient")
-	public String updateParent(@RequestBody Parent parent) throws InterruptedException, ExecutionException {
-		return parentService.updateParentInfo(parent);
-	}
-	
-	@DeleteMapping("/deletePatient")
-	public String deleteParent(@RequestParam String name) {
-		return parentService.deleteParent(name); 
-	}
-	
-
 }
