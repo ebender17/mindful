@@ -25,8 +25,6 @@ import com.mindful.service.ParentService;
 
 @Controller
 public class MindfulController {
-	@Autowired
-	FirebaseInitializer db; 
 	
 	@Autowired
 	ParentService parentService;
