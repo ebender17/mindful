@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -68,6 +69,13 @@ public class MindfulController {
 	@RequestMapping("/welcome")
 	public String welcomeScreen() {
 		return "welcome";
+	}
+	
+	@PostMapping("/save")
+	public String save(@ModelAttribute("parent") Parent theParent) throws InterruptedException, ExecutionException {
+		System.out.println(theParent.getID());
+		//parentService.saveParent(theParent);
+		return "redirect:/signUp";
 	}
 	
 	@GetMapping("/getAllParents")

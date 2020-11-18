@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Mindful</title>
@@ -46,29 +46,30 @@
             </div>
         </nav>
         <br>
-        <form style="margin: 70px;">
+        <form style="margin: 70px;" action="#" th:action="@{/save}" th:object="${parent}"
+			method="POST">
+<!--             <div class="form-group row"> -->
+<!--               <label for="firstName" class="col-sm-2 col-form-label">First Name:</label> -->
+<!--               <div class="col-sm-10"> -->
+<!--                 <input type="text" class="form-control" id="firstName" required> -->
+<!--               </div> -->
+<!--             </div> -->
             <div class="form-group row">
-              <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
+              <label for="name" class="col-sm-2 col-form-label">Enter your Name: </label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="firstName" required>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="lastName" class="col-sm-2 col-form-label">Last Name: </label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="lastName" required>
+                <input type="text" th:field="*{name}" class="form-control" id="name" required>
               </div>
             </div>
             <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Email:</label>
                 <div class="col-sm-10">
-                  <input type="email" class="form-control" id="email" required>
+                  <input type="email" th:field="*{email}" class="form-control" id="email" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="password" class="col-sm-2 col-form-label">Password: </label>
                 <div class="col-sm-10">
-                  <input type="password" class="form-control" id="password" required>
+                  <input type="password" th:field="*{password}" class="form-control" id="password" required>
                 </div>
               </div>
 
