@@ -9,27 +9,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
+import com.mindful.dto.Child;
 import com.mindful.dto.Parent;
-import com.mindful.service.FirebaseInitializer;
+import com.mindful.service.ChildService;
 import com.mindful.service.ParentService;
 
 @Controller
 public class MindfulController {
 	
-	@Autowired
-	ParentService parentService;
+	public ParentService parentService;
+	public ChildService childService;
 	
-	
+	public MindfulController(ParentService theParentService, ChildService theChildService) 
+	{
+		parentService = theParentService;
+		childService = theChildService;
+	}
 	/*
 	 * Handle /index endpoint
 	 *@return  
@@ -70,22 +72,47 @@ public class MindfulController {
 		return "welcome";
 	}
 	
+	@PostMapping("/save")
+	public String save(@ModelAttribute("parent") Parent theParent) throws InterruptedException, ExecutionException {
+		//System.out.println(theParent.getID());
+		parentService.save(theParent);
+		
+		return "redirect:/signUp";
+	}
+	
 	@GetMapping("/getAllParents")
 	public String getAllParents(Model allModel) throws InterruptedException, ExecutionException {
 		
-		//list of parents 
-		List<Parent> parentList = new ArrayList<Parent>();
-		List<Parent> parentList2 = new ArrayList<Parent>();
-		
-		parentList = parentService.getAllParents();
-		Parent parent1 = parentService.getParentByID("u6MPV6TLadpZsy8Lh7bt");
-		parentList2 = parentService.getParentByName("Tish Cyrus"); 
-		 
-		allModel.addAttribute("Parents", parentList); 
-		allModel.addAttribute("Parent1", parent1);
-		allModel.addAttribute("Parents2", parentList2); 
 		 
 		return "Parents"; 
 		
 	}
+	
+	
+	@RequestMapping("/addData")
+	public String addData()
+	{
+		Parent parent1 = new Parent();
+		Parent parent2 = new Parent();
+		
+		Child child1 = new Child();
+		
+		child1.setFirstName("Miley");
+		child1.setLastName("Cyrus");
+		
+		parent1.setFirstName("Billy Ray");
+		parent1.setLastName("Cyrus");
+		parent2.setFirstName("Tish");
+		parent2.setLastName("Cyrus");
+		
+		child1.getParents().add(parent1);
+		child1.getParents().add(parent2);
+		parent1.getChildren().add(child1);
+		parent2.getChildren().add(child1); 
+		
+		parentService.save(parent1);
+		parentService.save(parent2);
+		return "redirect:/index";
+	}
+	
 }
