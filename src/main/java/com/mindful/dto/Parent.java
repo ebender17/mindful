@@ -1,13 +1,19 @@
 package com.mindful.dto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -15,18 +21,21 @@ import org.springframework.stereotype.Component;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.GeoPoint;
 
-@Component 
+
 @Entity
 @Table(name="Parent")
 public class Parent {
 	
 	@Id // Showing that this is identification column
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private String ID; 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="parentId")
+	private int parentId; 
 	
-	@Column(name="name")
-	private String name;
+	@Column(name="firstName")
+	private String firstName;
+	
+	@Column(name="lastName")
+	private String lastName;
 	
 	@Column(name="email")
 	private String email;
@@ -34,60 +43,68 @@ public class Parent {
 	@Column(name="password")
 	private String password;
 	
-	private GeoPoint location;
-	private double latitude;
-	private double longitude;
-	private List<String> children;
+	@ManyToMany(cascade= {
+			CascadeType.ALL
+	})
+	@JoinTable(
+			name = "parents_children",
+			joinColumns = {
+					@JoinColumn(name = "parentId")
+			},
+			inverseJoinColumns = {
+					@JoinColumn(name = "childId")
+			}
+			)
+	private Set<Child> children = new HashSet<Child>();
 
-	public String getID() {
-		return ID;
+	public int getParentId() {
+		return parentId;
 	}
-	public void setID(String id) {
-		ID = id;
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
-	public String getName() {
-		return name;
+
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public GeoPoint getLocation() {
-		return location;
-	}
-	public void setLocation(GeoPoint location) {
-		this.location = location;
-		this.longitude = location.getLongitude(); 
-		this.latitude = location.getLatitude();
-	}
-	public double getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-	public double getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-	public List<String> getChildren() {
+
+
+	public Set<Child> getChildren() {
 		return children;
 	}
-	public void setChildren(List<String> children) {
+
+	public void setChildren(Set<Child> children) {
 		this.children = children;
 	}
+
 
 }
