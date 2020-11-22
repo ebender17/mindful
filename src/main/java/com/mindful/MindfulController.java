@@ -27,6 +27,9 @@ public class MindfulController {
 	public ParentService parentService;
 	public ChildService childService;
 	
+	/*
+	 * Allows for both services to have their individual repository methods used on respective databases.
+	 */
 	public MindfulController(ParentService theParentService, ChildService theChildService) 
 	{
 		parentService = theParentService;
@@ -72,6 +75,9 @@ public class MindfulController {
 		return "welcome";
 	}
 	
+	/*
+	 * Saves new parent in the sign in page.
+	 */
 	@PostMapping("/save")
 	public String save(@ModelAttribute("parent") Parent theParent) throws InterruptedException, ExecutionException {
 		//System.out.println(theParent.getID());
@@ -88,7 +94,9 @@ public class MindfulController {
 		
 	}
 	
-	
+	/*
+	 * Adding new parents and associating them to a child.
+	 */
 	@RequestMapping("/addData")
 	public String addData()
 	{

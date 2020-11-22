@@ -45,6 +45,9 @@ public class Child {
 	@Column(name="longitude")
 	private String longitude;
 	
+	/*
+	 * This creates a many to many relationship for the childID to the parentID
+	 */
 	@ManyToMany(mappedBy = "children", cascade= {CascadeType.ALL})
 	private Set<Parent> parents = new HashSet<Parent>();
 
@@ -110,10 +113,17 @@ public class Child {
 
 	public void setParents(Set<Parent> parents) {
 		this.parents = parents;
+	}
+
+	/*
+	 * Creating toString method for easier concatenation of child entity
+	 */
+	@Override
+	public String toString() {
+		return "Child [childId=" + childId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", latitude=" + latitude + ", longitude=" + longitude + ", parents="
+				+ parents + "]";
 	} 
 	
 	
-	
-	
-
 }

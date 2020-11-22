@@ -46,6 +46,10 @@ public class Parent {
 	@ManyToMany(cascade= {
 			CascadeType.ALL
 	})
+	
+	/*
+	 * This piece of code takes the parentID and childID to join them on one to many relationship based on the parentID
+	 */
 	@JoinTable(
 			name = "parents_children",
 			joinColumns = {
@@ -106,5 +110,14 @@ public class Parent {
 		this.children = children;
 	}
 
+	/*
+	 * Generating toString class for easier concatenation of id's
+	 */
+	@Override
+	public String toString() {
+		return "Parent [parentId=" + parentId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+				+ email + ", password=" + password + ", children=" + children + "]";
+	}
 
+	
 }
