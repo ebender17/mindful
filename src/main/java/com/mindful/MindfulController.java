@@ -18,19 +18,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mindful.dto.Child;
 import com.mindful.dto.Parent;
+import com.mindful.dto.User;
 import com.mindful.service.ChildService;
 import com.mindful.service.ParentService;
+import com.mindful.service.UserService;
 
 @Controller
 public class MindfulController {
 	
 	public ParentService parentService;
 	public ChildService childService;
+	public UserService userService;
 	
-	public MindfulController(ParentService theParentService, ChildService theChildService) 
+	public MindfulController(ParentService theParentService, ChildService theChildService, UserService theUserService) 
 	{
 		parentService = theParentService;
 		childService = theChildService;
+		userService = theUserService;
 	}
 	/*
 	 * Handle /index endpoint
@@ -39,6 +43,10 @@ public class MindfulController {
 	 **/
 	@RequestMapping("/index")
 	public String index() { 
+		User theUser = new User();
+		theUser.setEmail("bob@gmail.com");
+		userService.save(theUser);
+		userService.login("bob@gmail.com", "abc123");
 		return "index";
 	}
 	
