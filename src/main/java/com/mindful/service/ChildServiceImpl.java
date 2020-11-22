@@ -23,7 +23,7 @@ public class ChildServiceImpl implements ChildService {
 	@Override
 	public List<Child> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return childRepository.findAllByOrderByLastNameAsc();
 	}
 
 	@Override

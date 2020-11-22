@@ -21,9 +21,11 @@
         <!-- <h5 class="card-title" style="text-align: center">
         Parent Dashboard</h5>
          <div id="mapid" style="height: 180px"></div> -->
+        
          <header class="card-title" style="text-align: center; background-color: darkgrey;">
             <h1>Mindful</h1>
         </header>
+       
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e6e6e6;">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -45,6 +47,7 @@
                   </ul>
             </div>
         </nav>
+        
         <br>
         <form style="margin: 70px;" action="#" th:action="@{/save}" th:object="${parent}"
 			method="POST">
@@ -103,12 +106,15 @@
               </div>
             </div>
         </form>
+        
     </div>
+    
     <footer class="page-footer font-small blue pt-4">
     			<div class="footer-copyright text-center py-3">
     					© 2020 Copyright Reserved
 				</div>
    			</footer>
+   			
     </div>
         <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
         <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>

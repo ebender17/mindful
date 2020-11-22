@@ -22,7 +22,7 @@ public class ParentServiceImpl implements ParentService {
 	@Override
 	public List<Parent> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return parentRepository.findAllByOrderByLastNameAsc();
 	}
 
 	@Override
