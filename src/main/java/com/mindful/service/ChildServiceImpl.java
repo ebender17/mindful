@@ -26,6 +26,11 @@ public class ChildServiceImpl implements ChildService {
 		return null;
 	}
 
+	/*
+	 * The findById() method takes the child id and if it is present it will get the child corresponding to the identifier.
+	 * If the id is not found then it throws an error saying the child id is not present.
+	 * Finally the child is returned if the corresponding identifier is present.
+	 */
 	@Override
 	public Child findById(int theId) {
 		Optional<Child> childid = childRepository.findById(theId);
@@ -43,12 +48,19 @@ public class ChildServiceImpl implements ChildService {
 		return theChild;
 	}
 
+	/*
+	 * The save() method takes new child information and saves it to the database while also giving it a new identifier so it can be returned later.
+	 */
 	@Override
 	public void save(Child theChild) {
 		childRepository.save(theChild);
 
 	}
 
+	/*
+	 * The deleteById() method finds the id of the corresponding child wanting to be deleted.
+	 * If this id is found then it deletes the corresponding id from the database.
+	 */
 	@Override
 	public void deleteById(int theId) {
 		childRepository.deleteById(theId);

@@ -5,68 +5,68 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h4> All Parents </h4>
-	<br/>
+	<h4>All Parents</h4>
+	<br />
 	<table>
-		<thead> 
-			<tr> 
-				<th> ID </th>
-				<th>Name </th>
-				<th> Longitude </th>
-				<th> Children </th>
-			</tr>
-		</thead>
-		<tbody> 
-			<tr th:each="Parent : ${Parents}">
-				<td th:text=${Parent.ID}/>
-				<td th:text="${Parent.name}"/>
-				<td th:text="${Parent.longitude}"/>
-				<td th:text="${Parent.children}"/>
-			</tr>
-		</tbody>
-	
-	</table>
-	<h4> Parent </h4>
-	<br/>
-	<table>
-		<thead> 
-			<tr> 
-				<th> ID </th>
-				<th>Name </th>
-				<th> Longitude </th>
-				<th> Children </th>
-			</tr>
-		</thead>
-		<tbody> 
+		<thead>
 			<tr>
-				<td th:text=${Parent1.ID}/>
-				<td th:text="${Parent1.name}"/>
-				<td th:text="${Parent1.longitude}"/>
-				<td th:text="${Parent1.children}"/>
-			</tr>
-		</tbody>
-	
-	</table>
-	<h4> Parent 2 </h4>
-	<br/>
-	<table>
-		<thead> 
-			<tr> 
-				<th> ID </th>
-				<th>Name </th>
-				<th> Longitude </th>
-				<th> Children </th>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Longitude</th>
+				<th>Children</th>
 			</tr>
 		</thead>
-		<tbody> 
-			<tr th:each="Parent : ${Parents2}">
-				<td th:text=${Parent.ID}/>
-				<td th:text="${Parent.name}"/>
-				<td th:text="${Parent.longitude}"/>
-				<td th:text="${Parent.children}"/>
+		<tbody>
+			<tr th:each="Parent : ${Parents}">
+				<td th:text=${Parent.ID} />
+				<td th:text="${Parent.name}" />
+				<td th:text="${Parent.longitude}" />
+				<td th:text="${Parent.children}" />
 			</tr>
 		</tbody>
-	
+
+	</table>
+	<h4>Parent</h4>
+	<br />
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Longitude</th>
+				<th>Children</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text=${Parent1.ID} />
+				<td th:text="${Parent1.name}" />
+				<td th:text="${Parent1.longitude}" />
+				<td th:text="${Parent1.children}" />
+			</tr>
+		</tbody>
+
+	</table>
+	<h4>Parent 2</h4>
+	<br />
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Longitude</th>
+				<th>Children</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="Parent : ${Parents2}">
+				<td th:text=${Parent.ID} />
+				<td th:text="${Parent.name}" />
+				<td th:text="${Parent.longitude}" />
+				<td th:text="${Parent.children}" />
+			</tr>
+		</tbody>
+
 	</table>
 
 </body>

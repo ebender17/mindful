@@ -25,6 +25,11 @@ public class ParentServiceImpl implements ParentService {
 		return null;
 	}
 
+	/*
+	 * The findById() method takes the parents identity column of the parent and searches based on the unique value.
+	 * If that id is present it returns the appropriate and corresponding parent.
+	 * If it does not match the if statement throws an error saying the parent id they are searching for is invalid.
+	 */
 	@Override
 	public Parent findById(int theId) {
 		Optional<Parent> parentid = parentRepository.findById(theId);
@@ -42,12 +47,18 @@ public class ParentServiceImpl implements ParentService {
 		return theParent;
 	}
 
+	/*
+	 * The save() method takes in new parent data and saves it to the backend database.
+	 */
 	@Override
 	public void save(Parent theParent) {
 		parentRepository.save(theParent);
 
 	}
 
+	/*
+	 * If the id of a particular parent is selected it checks the id to the database and then deletes it accordingly.
+	 */
 	@Override
 	public void deleteById(int theId) {
 		parentRepository.deleteById(theId);
