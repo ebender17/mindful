@@ -64,6 +64,11 @@ public class UserServiceImpl implements UserService {
 				login = childRepository.findById(user.getAccountID()).get();
 				break;
 		}
+		
+		if(login.getPassword() != password) {
+			throw new RuntimeException("The password you have entered is invalid");
+		}
+		
 		return login;
 	}
 	

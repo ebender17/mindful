@@ -107,19 +107,27 @@ public class MindfulController {
 		
 		child1.setFirstName("Miley");
 		child1.setLastName("Cyrus");
+		child1.setEmail("miley@cyrus.com");
+		child1.setPassword("abc123");
 		
 		parent1.setFirstName("Billy Ray");
 		parent1.setLastName("Cyrus");
+		parent1.setEmail("billy@cyrus.com");
+		parent1.setPassword("abc123");
 		parent2.setFirstName("Tish");
 		parent2.setLastName("Cyrus");
+		parent2.setEmail("tish@cyrus.com");
+		parent2.setPassword("abc123");
 		
 		child1.getParents().add(parent1);
 		child1.getParents().add(parent2);
 		parent1.getChildren().add(child1);
 		parent2.getChildren().add(child1); 
 		
-		parentService.save(parent1);
-		parentService.save(parent2);
+		userService.signUp(parent1, "parent");
+		userService.signUp(parent2, "parent");
+		userService.signUp(child1, "child");
+		
 		return "redirect:/index";
 	}
 	
