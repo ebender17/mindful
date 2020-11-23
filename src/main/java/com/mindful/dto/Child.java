@@ -19,13 +19,13 @@ public class Child implements Account {
 	
 	@Id // Showing that this is identification column
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="childId")
+	@Column(name="child_id")
 	private int childId; 
 	
-	@Column(name="firstName")
+	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="lastName")
+	@Column(name="last_name")
 	private String lastName;
 	
 	@Column(name="email")

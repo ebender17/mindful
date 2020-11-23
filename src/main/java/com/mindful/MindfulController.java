@@ -1,20 +1,14 @@
 package com.mindful;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mindful.dto.Child;
 import com.mindful.dto.Parent;
@@ -61,9 +55,18 @@ public class MindfulController {
 	}
 	
 	@RequestMapping(value="/signUp")
-	public String signUp() {
+	public String signUp(Model theModel) {
+		Parent parent = new Parent();
+		theModel.addAttribute("parent", parent);
 		return "signUp";
 	}
+	
+	@RequestMapping(value="/login")
+	public String login(Model theModel) {
+		Parent parent = new Parent();
+		theModel.addAttribute("parent", parent);
+		return "login";
+	} 
 	
 	@RequestMapping(value="/studentDashboard")
 	public String studentDashboard() {
@@ -80,10 +83,21 @@ public class MindfulController {
 		return "welcome";
 	}
 	
+//	@GetMapping("/")
+//	public String displayParent(Model theModel) {
+//		theModel.addAttribute("parent", new Parent());
+//		return "parent";
+//	}
+	
 	@PostMapping("/save")
-	public String save(@ModelAttribute("parent") Parent theParent) throws InterruptedException, ExecutionException {
-		//System.out.println(theParent.getID());
-		parentService.save(theParent);
+	public String save(@ModelAttribute("parent") Parent theParent, BindingResult bindingResult, Model model) throws InterruptedException, ExecutionException {
+		if(bindingResult.hasErrors()) {
+			System.out.println("There was an error " + bindingResult);
+			return "index";
+		}
+		model.addAttribute("parent", theParent);
+		System.out.println(theParent.getType());
+		//parentService.save(theParent);
 		
 		return "redirect:/signUp";
 	}
