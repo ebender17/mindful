@@ -37,10 +37,6 @@ public class MindfulController {
 	 **/
 	@RequestMapping("/index")
 	public String index() { 
-		User theUser = new User();
-		theUser.setEmail("bob@gmail.com");
-		userService.save(theUser);
-		userService.login("bob@gmail.com", "abc123");
 		return "index";
 	}
 	
@@ -63,8 +59,8 @@ public class MindfulController {
 	
 	@RequestMapping(value="/login")
 	public String login(Model theModel) {
-		Parent parent = new Parent();
-		theModel.addAttribute("parent", parent);
+		User user = new User();
+		theModel.addAttribute("user", user);
 		return "login";
 	} 
 	
@@ -89,14 +85,36 @@ public class MindfulController {
 //		return "parent";
 //	}
 	
+	@PostMapping("/login")
+	public String login(@ModelAttribute("user") User theUser) {
+		userService.login(theUser.getEmail(), theUser.getPassword());
+		System.out.println(userService.login(theUser.getEmail(), theUser.getPassword()));
+		return "redirect:/index";
+	}
+	
 	@PostMapping("/save")
 	public String save(@ModelAttribute("parent") Parent theParent, BindingResult bindingResult, Model model) throws InterruptedException, ExecutionException {
 		if(bindingResult.hasErrors()) {
 			System.out.println("There was an error " + bindingResult);
 			return "index";
 		}
+		//System.out.println(theParent.getType().equals("child"));
 		model.addAttribute("parent", theParent);
-		System.out.println(theParent.getType());
+		if(theParent.getType().equals("child")) {
+			Child child = new Child();
+			child.setFirstName(theParent.getFirstName());
+			child.setLastName(theParent.getLastName());
+			child.setEmail(theParent.getEmail());
+			child.setPassword(theParent.getPassword());
+			child.setType(theParent.getType());
+			userService.signUp(child, "child");
+			System.out.println(theParent.getType());
+		} else {
+			System.out.println(theParent.getType());
+			userService.signUp(theParent, theParent.getType());
+		}
+		
+		
 		//parentService.save(theParent);
 		
 		return "redirect:/signUp";

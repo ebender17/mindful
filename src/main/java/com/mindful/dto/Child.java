@@ -40,6 +40,17 @@ public class Child implements Account {
 	@Column(name="longitude")
 	private String longitude;
 	
+	@Column(name="type")
+	private String type;
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@ManyToMany(mappedBy = "children", cascade= {CascadeType.ALL})
 	private Set<Parent> parents = new HashSet<Parent>();
 

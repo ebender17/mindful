@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 				break;
 		}
 		
-		if(login.getPassword() != password) {
+		if(!login.getPassword().equals(password)) {
 			throw new RuntimeException("The password you have entered is invalid");
 		}
 		
