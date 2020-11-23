@@ -23,18 +23,19 @@ import com.google.cloud.firestore.GeoPoint;
 
 
 @Entity
-@Table(name="Parent")
+@Table(name="parent")
 public class Parent {
 	
 	@Id // Showing that this is identification column
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="parentId")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+	@Column(name="parent_id")
 	private int parentId; 
 	
-	@Column(name="firstName")
+	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="lastName")
+	@Column(name="last_name")
 	private String lastName;
 	
 	@Column(name="email")
@@ -43,16 +44,19 @@ public class Parent {
 	@Column(name="password")
 	private String password;
 	
+	@Column(name="type")
+	private String type;
+	
 	@ManyToMany(cascade= {
 			CascadeType.ALL
 	})
 	@JoinTable(
 			name = "parents_children",
 			joinColumns = {
-					@JoinColumn(name = "parentId")
+					@JoinColumn(name = "parent_id")
 			},
 			inverseJoinColumns = {
-					@JoinColumn(name = "childId")
+					@JoinColumn(name = "child_id")
 			}
 			)
 	private Set<Child> children = new HashSet<Child>();
@@ -104,6 +108,14 @@ public class Parent {
 
 	public void setChildren(Set<Child> children) {
 		this.children = children;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 
