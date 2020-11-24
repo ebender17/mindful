@@ -21,40 +21,34 @@ import org.springframework.stereotype.Component;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.GeoPoint;
 
-
 @Entity
-@Table(name="Parent")
-public class Parent implements Account{
-	
+@Table(name = "Parent")
+public class Parent implements Account {
+
 	@Id // Showing that this is identification column
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="parentId")
-	private int parentId; 
-	
-	@Column(name="firstName")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Column(name = "parent_id")
+	private int parentId;
+
+	@Column(name = "first_name")
 	private String firstName;
-	
-	@Column(name="lastName")
+
+	@Column(name = "last_name")
 	private String lastName;
-	
-	@Column(name="email")
+
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="password")
+
+	@Column(name = "password")
 	private String password;
-	
-	@ManyToMany(cascade= {
-			CascadeType.ALL
-	})
-	@JoinTable(
-			name = "parents_children",
-			joinColumns = {
-					@JoinColumn(name = "parentId")
-			},
-			inverseJoinColumns = {
-					@JoinColumn(name = "childId")
-			}
-			)
+
+	@Column(name = "type")
+	private String type;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "parents_children", joinColumns = { @JoinColumn(name = "parent_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "child_id") })
 	private Set<Child> children = new HashSet<Child>();
 
 	public int getParentId() {
@@ -97,7 +91,6 @@ public class Parent implements Account{
 		this.password = password;
 	}
 
-
 	public Set<Child> getChildren() {
 		return children;
 	}
@@ -111,11 +104,18 @@ public class Parent implements Account{
 		// TODO Auto-generated method stub
 		return getParentId();
 	}
-	
+
 	@Override
 	public String getAccountType() {
 		return "parent";
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 }

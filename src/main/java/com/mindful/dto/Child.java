@@ -19,13 +19,13 @@ public class Child implements Account {
 	
 	@Id // Showing that this is identification column
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="childId")
+	@Column(name="child_id")
 	private int childId; 
 	
-	@Column(name="firstName")
+	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="lastName")
+	@Column(name="last_name")
 	private String lastName;
 	
 	@Column(name="email")
@@ -40,6 +40,17 @@ public class Child implements Account {
 	@Column(name="longitude")
 	private String longitude;
 	
+	@Column(name="type")
+	private String type;
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@ManyToMany(mappedBy = "children", cascade= {CascadeType.ALL})
 	private Set<Parent> parents = new HashSet<Parent>();
 
