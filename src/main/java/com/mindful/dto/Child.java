@@ -111,6 +111,12 @@ public class Child implements Account {
 	public int getID() {
 		// TODO Auto-generated method stub
 		return getChildId();
+	}
+
+	@Override
+	public String getAccountType() {
+		// TODO Auto-generated method stub
+		return "child";
 	} 
 	
 	

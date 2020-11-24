@@ -111,6 +111,11 @@ public class Parent implements Account{
 		// TODO Auto-generated method stub
 		return getParentId();
 	}
+	
+	@Override
+	public String getAccountType() {
+		return "parent";
+	}
 
 
 }
