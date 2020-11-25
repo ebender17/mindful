@@ -2,6 +2,7 @@ package com.mindful.service;
 
 import java.util.List;
 
+import com.mindful.dto.Child;
 import com.mindful.dto.Parent;
 
 public interface ParentService {
@@ -13,5 +14,9 @@ public interface ParentService {
 	public void save(Parent theParent); 
 	
 	public void deleteById(int theId); 
+	
+	public String generateCode();
+
+	public void addChildToParent(String joinCode, Child child, Parent parent);
 
 }

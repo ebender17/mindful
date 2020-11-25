@@ -16,11 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.GeoPoint;
-
 @Entity
 @Table(name = "Parent")
 public class Parent implements Account {
@@ -45,6 +40,17 @@ public class Parent implements Account {
 
 	@Column(name = "type")
 	private String type;
+	
+	@Column(name="join_code")
+	private String joinCode;
+
+	public String getJoinCode() {
+		return joinCode;
+	}
+
+	public void setJoinCode(String joinCode) {
+		this.joinCode = joinCode;
+	}
 
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "parents_children", joinColumns = { @JoinColumn(name = "parent_id") }, inverseJoinColumns = {
