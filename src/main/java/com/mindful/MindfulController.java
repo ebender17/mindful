@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mindful.dto.Account;
 import com.mindful.dto.Child;
 import com.mindful.dto.Parent;
 import com.mindful.dto.User;
@@ -87,18 +88,19 @@ public class MindfulController {
 //	}
 	
 	@GetMapping("/join")
-	public String join(@RequestParam("joinCode") String code, @RequestParam("childID") int childID, @RequestParam("parentID") int parentID){
+	public String join(@RequestParam("joinCode") String code, @RequestParam("childID") int childID){
 		Child child = childService.findById(childID);
-		Parent parent = parentService.findById(parentID);
+		Parent parent = parentService.findByJoinCode(code);
 		parentService.addChildToParent(code, child, parent);
 		return "redirect:/index";
 	}
 	
 	@PostMapping("/login")
 	public String login(@ModelAttribute("user") User theUser) {
-		userService.login(theUser.getEmail(), theUser.getPassword());
-		System.out.println(userService.login(theUser.getEmail(), theUser.getPassword()));
-		return "redirect:/index";
+		Account user = userService.login(theUser.getEmail(), theUser.getPassword());
+		//userService.login(theUser.getEmail(), theUser.getPassword());
+		//System.out.println(userService.login(theUser.getEmail(), theUser.getPassword()));
+		return "redirect:/index?AccountId=" + user.getID() + "&AccountType=" + user.getAccountType();
 	}
 	
 	@PostMapping("/save")

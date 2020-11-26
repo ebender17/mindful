@@ -69,4 +69,10 @@ public class ParentServiceImpl implements ParentService {
 		}
 	}
 
+	@Override
+	public Parent findByJoinCode(String code) {
+		// TODO Auto-generated method stub
+		return parentRepository.findByJoinCode(code);
+	}
+
 }

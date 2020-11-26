@@ -84,6 +84,19 @@
 		</div>
 		<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 		<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script>
+			const id = window.location.search;
+			const urlId = new URLSearchParams(id);
+			if(urlId){
+				if(urlId.get("AccountId")){
+					localStorage.setItem("Id", urlId.get("AccountId"));
+				}
+				if(urlId.get("AccountType")){
+					localStorage.setItem("AccountType", urlId.get("AccountType"));
+				}
+				
+			}
+		</script>
 	</div>
 </body>
 </html>

@@ -19,4 +19,5 @@ public interface ParentService {
 
 	public void addChildToParent(String joinCode, Child child, Parent parent);
 
+	public Parent findByJoinCode(String code);
 }
