@@ -23,8 +23,8 @@ import com.google.cloud.firestore.GeoPoint;
 
 
 @Entity
-@Table(name="parent")
-public class Parent {
+@Table(name="Parent")
+public class Parent implements Account{
 	
 	@Id // Showing that this is identification column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -110,6 +110,11 @@ public class Parent {
 		this.children = children;
 	}
 
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return getParentId();
+	}
 	public String getType() {
 		return type;
 	}

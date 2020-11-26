@@ -13,14 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.GeoPoint;
-
 @Entity
-@Table(name="child")
-public class Child {
+@Table(name="Child")
+public class Child implements Account {
 	
 	@Id // Showing that this is identification column
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -45,6 +40,17 @@ public class Child {
 	@Column(name="longitude")
 	private String longitude;
 	
+	@Column(name="type")
+	private String type;
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@ManyToMany(mappedBy = "children", cascade= {CascadeType.ALL})
 	private Set<Parent> parents = new HashSet<Parent>();
 
@@ -110,6 +116,12 @@ public class Child {
 
 	public void setParents(Set<Parent> parents) {
 		this.parents = parents;
+	}
+
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return getChildId();
 	} 
 	
 	
