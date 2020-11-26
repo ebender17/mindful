@@ -105,7 +105,14 @@ public class MindfulController {
 		Account user = userService.login(theUser.getEmail(), theUser.getPassword());
 		//userService.login(theUser.getEmail(), theUser.getPassword());
 		//System.out.println(userService.login(theUser.getEmail(), theUser.getPassword()));
-		return "redirect:/index?AccountId=" + user.getID() + "&AccountType=" + user.getAccountType();
+		if(user.getAccountType().equals("parent")) {
+			Parent parent = new Parent();
+			parent = parentService.findById(user.getID());
+			String joinCode = parent.getJoinCode();
+			return  "redirect:/index?AccountId=" + user.getID() + "&AccountType=" + user.getAccountType() + "&JoinCode=" + joinCode;
+		} else {
+			return "redirect:/index?AccountId=" + user.getID() + "&AccountType=" + user.getAccountType();
+		}	
 	}
 	
 	@PostMapping("/save")

@@ -39,7 +39,10 @@
 				
 				<br>
 				
-				Your child is located at: 
+			<p>	Your child is located at: </p>
+			<button class="btn btn-primary" style="margin: 0 auto; display: block;" onclick="getJoinCode()">Get Join Code</button>
+			<br>
+			<p style="margin-left:43%;" id="showJoinCode"></p>
 			</div>
 			<footer class="page-footer font-small blue pt-4">
     			<div class="footer-copyright text-center py-3">
@@ -63,6 +66,14 @@
 		    zoomOffset: -1,
 		    accessToken: 'pk.eyJ1IjoiYmVubmV0dGphIiwiYSI6ImNraGpzNTZ2MTAyM24yeHA4OWdhb3pneDEifQ.C6nJ4-vTyZ4hHo9NJDBvOQ'
 		}).addTo(mymap);
+		
+		function getJoinCode(){
+			document.getElementById("showJoinCode").innerHTML = "Your join code is: " + localStorage.getItem("JoinCode");
+			setTimeout(function(){
+				document.getElementById("showJoinCode").innerHTML = "";
+			}, 5000);
+		}
+		
 		</script>
 	</div>
 </body>
