@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mindful.dao.ParentRepository;
+import com.mindful.dto.Child;
 import com.mindful.dto.Parent;
 
 @Service
@@ -52,6 +53,20 @@ public class ParentServiceImpl implements ParentService {
 	public void deleteById(int theId) {
 		parentRepository.deleteById(theId);
 
+	}
+	
+	public String generateCode() {
+		return Long.toString(Math.round(Math.random() * 1000000));
+	}
+	
+	@Override
+	public void addChildToParent(String joinCode, Child child, Parent parent) {
+		if(parent.getJoinCode().equals(joinCode)) {
+			parent.getChildren().add(child);
+			save(parent);
+		} else {
+			throw new RuntimeException("No join code with code: " + joinCode);
+		}
 	}
 
 }

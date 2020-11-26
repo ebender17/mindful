@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mindful.dto.Child;
 import com.mindful.dto.Parent;
@@ -85,6 +86,14 @@ public class MindfulController {
 //		return "parent";
 //	}
 	
+	@GetMapping("/join")
+	public String join(@RequestParam("joinCode") String code, @RequestParam("childID") int childID, @RequestParam("parentID") int parentID){
+		Child child = childService.findById(childID);
+		Parent parent = parentService.findById(parentID);
+		parentService.addChildToParent(code, child, parent);
+		return "redirect:/index";
+	}
+	
 	@PostMapping("/login")
 	public String login(@ModelAttribute("user") User theUser) {
 		userService.login(theUser.getEmail(), theUser.getPassword());
@@ -111,6 +120,7 @@ public class MindfulController {
 			System.out.println(theParent.getType());
 		} else {
 			System.out.println(theParent.getType());
+			theParent.setJoinCode(parentService.generateCode());
 			userService.signUp(theParent, theParent.getType());
 		}
 		
