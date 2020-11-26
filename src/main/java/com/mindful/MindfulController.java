@@ -42,6 +42,11 @@ public class MindfulController {
 		return "index";
 	}
 	
+	@RequestMapping("/connectToParent")
+	public String connect() {
+		return "connectToParent";
+	}
+	
 	@RequestMapping("/")
 	public String start() { 
 		return "index";
