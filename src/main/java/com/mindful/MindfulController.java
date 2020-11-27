@@ -1,5 +1,6 @@
 package com.mindful;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.stereotype.Controller;
@@ -72,7 +73,9 @@ public class MindfulController {
 	} 
 	
 	@RequestMapping(value="/studentDashboard")
-	public String studentDashboard() {
+	public String studentDashboard(Model theModel) {
+		Child theChild = new Child();
+		theModel.addAttribute("child", theChild);
 		return "studentDashboard";
 	}
 	
@@ -185,6 +188,25 @@ public class MindfulController {
 		userService.signUp(child1, "child");
 		
 		return "redirect:/index";
+	}
+	
+	@PostMapping("/studentDashboard")
+	public String saveLongSatChild(@ModelAttribute("child") 
+	Child theChild) {
+		
+		childService.save(theChild);
+		
+		return "/studentDashboard";
+	}
+	
+	@GetMapping("/parentDashboard")
+	public String listOfLocations(Model theModel) {
+		List<Child> theChild = childService.findAll();
+		
+		theModel.addAttribute("children", theChild);
+		
+		return "/parentDashboard";
+				
 	}
 	
 }

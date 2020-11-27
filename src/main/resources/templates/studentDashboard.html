@@ -40,11 +40,20 @@
 														 <div id="mapid" style="height:300px"></div>
 				
 				<br>
-				<button class="btn btn-primary"  style="margin: 0 auto; display: block;" onclick="test()"> Check in </button>
+<form action="#" th:action="@{/studentDashboard}" th:object="${child}" method="POST">
+
+<input type="hidden" th:field="*{longitude}" id="long">
+<input type="hidden" th:field="*{latitude}" id="lat">
+
+				<button class="btn btn-primary" type="submit" style="margin: 0 auto; display: block;" onclick="test()"> Check in </button>
 				<br>
-				<p style="text-align: center" id="checkInId"></p>
+				</form>
+				<tbody>
+				<tr th:each="c : ${children}">
+				<td th:text="${c.latitude}"> </td> 
 				
-				<a style="margin-left: 44%;"  href="/connectToParent">Connect to my Parent</a>
+				</tr>
+				</tbody>
 				
 			</div>
 			<footer class="page-footer font-small blue pt-4">
@@ -81,7 +90,21 @@
 		        .bindPopup("You are located at " + e.latlng).openPopup();
 			   console.log(e.latlng);
 			window.global = e.latlng;
-			console.log(longLatDetails);
+			console.log(window.global);
+			document.getElementById('long').value = e.latlng;
+			var longEle = document.getElementById('long').value;
+			longEle = longEle.substring(7);
+			longEle = longEle.substring(0, longEle.length-11);
+			document.getElementById('long').value = longEle;
+			
+			document.getElementById('lat').value = window.global;
+			console.log(window.global);
+			var latEle = document.getElementById('lat').value;
+			latEle = latEle.substring(15);
+			latEle = latEle.substring(0, latEle.length-1);
+			document.getElementById('lat').value = latEle;
+		
+			
 		    L.circle(e.latlng, radius).addTo(map);
 		}
 

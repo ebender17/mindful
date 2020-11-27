@@ -38,11 +38,21 @@
 				
 				
 				<br>
+			
+				<br>
+				<table> 
 				
-			<p>	Your child is located at: </p>
-			<button class="btn btn-primary" style="margin: 0 auto; display: block;" onclick="getJoinCode()">Get Join Code</button>
-			<br>
-			<p style="margin-left:43%;" id="showJoinCode"></p>
+				<tbody>
+				<tr th:each="c : ${children}">
+								<p>Your child checked in at:  </p>
+				<td id="lat" th:text="${c.latitude}"></td>,
+				<td id="long" th:text="${c.longitude}"> </td>
+				</tr>
+				</tbody>
+				<p style="text-align: center" id="checkInId"></p>
+				
+				</table>
+				
 			</div>
 			<footer class="page-footer font-small blue pt-4">
     			<div class="footer-copyright text-center py-3">
@@ -57,15 +67,73 @@
    crossorigin=""></script>
 		<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 		<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script > var mymap = L.map('mapid').setView([51.505, -0.09], 13); 
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+		<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+		<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script >
+		var map = L.map('mapid').fitWorld();
+		var longLatDetails;
 		L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 		    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 		    maxZoom: 18,
-		    id: 'mapbox/streets-v11',
 		    tileSize: 512,
 		    zoomOffset: -1,
+		    id: 'mapbox/streets-v11',
 		    accessToken: 'pk.eyJ1IjoiYmVubmV0dGphIiwiYSI6ImNraGpzNTZ2MTAyM24yeHA4OWdhb3pneDEifQ.C6nJ4-vTyZ4hHo9NJDBvOQ'
-		}).addTo(mymap);
+
+		}).addTo(map);
+		
+
+		map.locate({setView: true, maxZoom: 16});
+
+		function onLocationFound(e) {
+		    var radius = e.accuracy;
+
+		    L.marker(e.latlng).addTo(map)
+		        .bindPopup("Your child is located at " + e.latlng).openPopup();
+			   console.log(e.latlng);
+			window.global = e.latlng;
+			console.log(window.global);
+			document.getElementById('long').value = e.latlng;
+			var longEle = document.getElementById('long').value;
+			longEle = longEle.substring(7);
+			longEle = longEle.substring(0, longEle.length-11);
+			document.getElementById('long').value = longEle;
+			
+			document.getElementById('lat').value = window.global;
+			console.log(window.global);
+			var latEle = document.getElementById('lat').value;
+			latEle = latEle.substring(15);
+			latEle = latEle.substring(0, latEle.length-1);
+			document.getElementById('lat').value = latEle;
+		
+			
+		    L.circle(e.latlng, radius).addTo(map);
+		}
+
+	
+		map.on('locationfound', onLocationFound);
+		
+		
+		function onLocationError(e) {
+		    alert(e.message);
+		}
+
+		map.on('locationerror', onLocationError);
+		
+		function test() {
+			console.log(window.global);
+			document.getElementById("checkInId").innerHTML = window.global;
+		}
+		
+		var getLat = document.getElementById('lat').innerText;
+
+		var getLong = document.getElementById('long').innerText;
+		console.log(getLat);
+		console.log(getLong);
+		//map.setView(new L.LatLng(getLat, getLong), 8);
 		
 		function getJoinCode(){
 			document.getElementById("showJoinCode").innerHTML = "Your join code is: " + localStorage.getItem("JoinCode");
