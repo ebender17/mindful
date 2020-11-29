@@ -128,6 +128,12 @@ public class Child implements Account {
 	public String getAccountType() {
 		// TODO Auto-generated method stub
 		return "child";
+	}
+
+	@Override
+	public String toString() {
+		return "Child [childId=" + childId + ", firstName=" + firstName + ", lastName=" + lastName + ", latitude="
+				+ latitude + ", longitude=" + longitude + "]";
 	} 
 	
 	

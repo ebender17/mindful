@@ -41,30 +41,34 @@
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active"><a class="nav-link"
 								href="/index">Home <span class="sr-only">(current)</span></a></li>
-							<li class="nav-item"><a class="nav-link" style="display: none"
-								href="/parentDashboard" id="parentDashboard">Parent Dashboard</a></li>
-							<li class="nav-item"><a class="nav-link" style="display: none"
-								href="/studentDashboard" id="childDashboard">Child Dashboard</a></li>
+							<li class="nav-item"><a class="nav-link"
+								style="display: none" href="/parentDashboard"
+								id="parentDashboard">Parent Dashboard</a></li>
+							<li class="nav-item"><a class="nav-link"
+								style="display: none" href="/studentDashboard"
+								id="childDashboard">Child Dashboard</a></li>
 							<li class="nav-item"><a class="nav-link" href="/contact">Contact
 									Us</a></li>
-							<li class="nav-item"><a class="nav-link" href="/signUp">SignUp</a>
-							</li>
+							<li class="nav-item"><a id="userStateButton"
+								class="nav-link" href="/signUp">Sign Up</a></li>
+							<li class="nav-item"><a id="login"
+								class="nav-link" href="/login">Log In</a></li>
 						</ul>
 					</div>
 				</nav>
 				<br>
-				<div id="carouselExampleControls" class="carousel slide" style="height:500px;"
-					data-ride="carousel">
+				<div id="carouselExampleControls" class="carousel slide"
+					style="height: 500px;" data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="https://content.presspage.com/uploads/1441/1920_2019-09-30-story-drive-138571.png?56451" class="d-block w-100" style="height:500px;" alt="...">
+							<img
+								src="https://content.presspage.com/uploads/1441/1920_2019-09-30-story-drive-138571.png?56451"
+								class="d-block w-100" style="height: 500px;" alt="...">
 						</div>
 						<div class="carousel-item">
-							<img src="https://www.supaquick.com/assets/news/roadsigns.jpg" class="d-block w-100" style="height:500px;" alt="...">
+							<img src="https://www.supaquick.com/assets/news/roadsigns.jpg"
+								class="d-block w-100" style="height: 500px;" alt="...">
 						</div>
-<!-- 						<div class="carousel-item"> -->
-<!-- 							<img src="..." class="d-block w-100" alt="..."> -->
-<!-- 						</div> -->
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleControls"
 						role="button" data-slide="prev"> <span
@@ -88,21 +92,38 @@
 			//localStorage.clear();
 			const id = window.location.search;
 			const urlId = new URLSearchParams(id);
-			if(urlId){
-				if(urlId.get("AccountId")){
+			if (urlId) {
+				if (urlId.get("AccountId")) {
 					localStorage.setItem("Id", urlId.get("AccountId"));
 				}
-				if(urlId.get("AccountType")){
-					localStorage.setItem("AccountType", urlId.get("AccountType"));
+				if (urlId.get("logout")) {
+					localStorage.clear();
+					document.getElementById("userStateButton").innerText = "Sign Up";
+					document.getElementById("userStateButton").href = "/signUp";
+					document.getElementById("login").style.display = "block";
+					document.getElementById("childDashboard").href = "/studentDashboard";
+					document.getElementById("parentDashboard").href = "/parentDashboard";
 				}
-				if(urlId.get("JoinCode")){
+				if (urlId.get("AccountType")) {
+					localStorage.setItem("AccountType", urlId
+							.get("AccountType"));
+				}
+				if (urlId.get("JoinCode")) {
 					localStorage.setItem("JoinCode", urlId.get("JoinCode"));
 				}
-				if(localStorage.getItem("AccountType") === "parent"){
+				if (localStorage.getItem("AccountType") === "parent") {
 					document.getElementById("parentDashboard").style.display = "block"
-				} else if(localStorage.getItem("AccountType") === "child"){
+				} else if (localStorage.getItem("AccountType") === "child") {
 					document.getElementById("childDashboard").style.display = "block"
 				}
+				if (localStorage.getItem('Id')) {
+					document.getElementById("childDashboard").href = "/studentDashboard?childID=" + localStorage.getItem('Id') 
+					document.getElementById("parentDashboard").href = "/parentDashboard?parentID=" + localStorage.getItem('Id')
+					document.getElementById("userStateButton").innerText = "Log Out";
+					document.getElementById("userStateButton").href = "/logout"
+					document.getElementById("login").style.display = "none"
+				}
+				
 			}
 		</script>
 	</div>

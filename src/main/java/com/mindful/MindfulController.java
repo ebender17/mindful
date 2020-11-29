@@ -1,6 +1,7 @@
 package com.mindful;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.stereotype.Controller;
@@ -70,11 +71,16 @@ public class MindfulController {
 		User user = new User();
 		theModel.addAttribute("user", user);
 		return "login";
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout() {
+		return "redirect:/index?logout=true";
 	} 
 	
 	@RequestMapping(value="/studentDashboard")
-	public String studentDashboard(Model theModel) {
-		Child theChild = new Child();
+	public String studentDashboard(Model theModel, @RequestParam("childID") int childID) {
+		Child theChild = childService.findById(childID);
 		theModel.addAttribute("child", theChild);
 		return "studentDashboard";
 	}
@@ -99,6 +105,7 @@ public class MindfulController {
 	public String join(@RequestParam("joinCode") String code, @RequestParam("childID") int childID){
 		Child child = childService.findById(childID);
 		Parent parent = parentService.findByJoinCode(code);
+		System.out.print(parent.getJoinCode());
 		parentService.addChildToParent(code, child, parent);
 		return "redirect:/index";
 	}
@@ -193,15 +200,17 @@ public class MindfulController {
 	@PostMapping("/studentDashboard")
 	public String saveLongSatChild(@ModelAttribute("child") 
 	Child theChild) {
-		
-		childService.save(theChild);
+		Child child = childService.findById(theChild.getChildId());
+		child.setLatitude(theChild.getLatitude());
+		child.setLongitude(theChild.getLongitude());
+		childService.save(child);
 		
 		return "/studentDashboard";
 	}
 	
 	@GetMapping("/parentDashboard")
-	public String listOfLocations(Model theModel) {
-		List<Child> theChild = childService.findAll();
+	public String listOfLocations(Model theModel, @RequestParam("parentID") int parentID) {
+		Set<Child> theChild = parentService.findById(parentID).getChildren();
 		
 		theModel.addAttribute("children", theChild);
 		
